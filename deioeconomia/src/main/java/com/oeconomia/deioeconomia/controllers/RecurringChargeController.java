@@ -41,7 +41,7 @@ public class RecurringChargeController
     @RequestMapping(value="/saveRecurringCharges", params={"save"}, method = RequestMethod.POST)
     public String saveCharges(@ModelAttribute RecurringCharge recurringCharge, BindingResult result) {
         if(result.hasErrors()) {
-            return "DUPA";
+            return "Doesn't work properly.";
         }
         RecurringChargeManager recurringChargeManager = new RecurringChargeManager();
         recurringChargeManager.save(recurringCharge);
