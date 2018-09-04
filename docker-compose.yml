@@ -1,0 +1,19 @@
+deioeconomia-db:
+    image: mongo:latest
+    container_name: "deioeconomia-db"
+    ports:
+      - "27017:27017"
+    volumes:
+      - data-mongo:/data/db
+
+deioeconomia:
+      build: ./deioeconomia
+      environment:
+           JPDA_ADDRESS: 8000
+           JPDA_TRANSPORT: dt_socket
+           JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
+      ports:
+            - "8080:8080"
+            - "8000:8000"
+      links:
+         - deioeconomia-db:deioeconomia-db

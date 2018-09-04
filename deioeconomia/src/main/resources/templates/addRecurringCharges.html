@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Currency For Date View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="all" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/currency">Get currencies</a></li>
+                <li><a href="/currency/0">Get currency for date</a></li>
+                <li class="active"><a href="/recurringCharges">Recurring charges</a></li>
+            </ul>
+        </div>
+        <div class="lang">
+            <span th:text="#{language}">Language </span>: <a href="?language=en">English</a> | <a href="?language=de">Deutsch</a>
+        </div>
+    </div>
+</nav>
+<h1 class="header" th:text="'Add Recurring Charges'" />
+<form action="#" th:action="@{/saveRecurringCharges}" th:object="${recurringCharge}" method = "post">
+    <table>
+        <tr>
+            <td th:text="#{recurringCharge.name}">Name</td>
+            <td><input type="text" name="name" value="" th:value="*{name}" size="20" /></td>
+        </tr>
+        <tr>
+            <td th:text="#{recurringCharge.income}">Is Income</td>
+            <td><input type="checkbox" name="income" value="" th:field="*{income}" /></td>
+        </tr>
+        <tr>
+            <td th:text="#{recurringCharge.value}">Value</td>
+            <td><input type="number" name="value" value="" th:value="*{value}" size="7"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{recurringCharge.recurrenceType}">Recurrence Type</td>
+            <td>
+                <select th:field="*{recurrence}">
+                    <option th:value="NULL" th:text="'---Select Type---'"></option>
+                    <option th:each="recurrenceType : ${recurrenceTypes}"
+                            th:value="${recurrence}" th:text="#{'recurrenceType.'+${{recurrenceType}}}">MONTHLY</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{recurringCharge.recurrenceMultiplication}">Recurrence Multiplication</td>
+            <td><input type="number" name="recurrenceMultiplication" value="" th:value="*{recurrenceMultiplication}" size="2"/></td>
+        </tr>
+        <tr>
+            <td colspan = "2">
+                <button name="save" type="submit" th:text="#{recurringCharge.save}" value="1">Submit</button>
+                <button type="reset" th:text="#{recurringCharge.reset}" value="2">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+
+</html>
